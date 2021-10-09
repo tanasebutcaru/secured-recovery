@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, NavLink } from "react-router-dom";
 import Icon from '@mdi/react';
-import { mdiLock , mdiLockOpenVariant } from '@mdi/js';
+import { mdiLock , mdiLockOpenVariant, mdiGithub } from '@mdi/js';
 import Encrypt from './pages/Encrypt';
 import Decrypt from './pages/Decrypt';
 
@@ -37,8 +37,13 @@ function App() {
         </Switch>
       </main>
       <footer>
-        <small>
-          &copy; Tanase Butcaru / MIT License / <a href="https://github.com/tbutcaru/secured-recovery" target="_blank" rel="noreferrer" title="Secured Recovery on GitHub">GitHub Repository</a>
+        <small className="copyright">
+          <span>
+            &copy; Tanase Butcaru / MIT License / Secured Recovery v{process.env.REACT_APP_VERSION}
+          </span>
+          <a href="https://github.com/tbutcaru/secured-recovery" target="_blank" rel="noreferrer" title="Secured Recovery on GitHub">
+            <Icon path={mdiGithub} size={1}/>
+          </a>
         </small>
       </footer>
     </Router>
