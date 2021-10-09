@@ -10,16 +10,16 @@ export const decryptData = (encryptedMessage, decKey) => {
 
 const setChunkIdData = (encryptedDataChunk, currentChunk, totalChunks) => `${encryptedDataChunk}/c${currentChunk}t${totalChunks}==`;
 
-const extractChunkIdData = (encryptedDataChunk) => {
-  const chunkIdDataRegex = /\/c([0-9])t([0-9])==$/;
-  const chunkIdDataResult = encryptedDataChunk.match(chunkIdDataRegex);
+// const extractChunkIdData = (encryptedDataChunk) => {
+//   const chunkIdDataRegex = /\/c([0-9])t([0-9])==$/;
+//   const chunkIdDataResult = encryptedDataChunk.match(chunkIdDataRegex);
 
-  if (chunkIdDataResult === null) {
-    return { currentChunk: -1, totalChunks: -1 };
-  }
+//   if (chunkIdDataResult === null) {
+//     return { currentChunk: -1, totalChunks: -1 };
+//   }
 
-  return { currentChunk: chunkIdDataResult[1], totalChunks: chunkIdDataResult[2] };
-}
+//   return { currentChunk: chunkIdDataResult[1], totalChunks: chunkIdDataResult[2] };
+// }
 
 export const splitEncryptedData = (encryptedData, chunks) => {
   const encryptedDataChunks = [];

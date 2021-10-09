@@ -38,7 +38,7 @@ function App() {
       </main>
       <footer>
         <small>
-          &copy; Tanase Butcaru / MIT License / <a href="https://github.com/tbutcaru/secured-recovery" target="_blank" title="Secured Recovery on GitHub">GitHub Repository</a>
+          &copy; Tanase Butcaru / MIT License / <a href="https://github.com/tbutcaru/secured-recovery" target="_blank" rel="noreferrer" title="Secured Recovery on GitHub">GitHub Repository</a>
         </small>
       </footer>
     </Router>

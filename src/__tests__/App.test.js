@@ -3,6 +3,6 @@ import App from '../App';
 
 test('tbd App test', () => {
   render(<App />);
-  const linkElement = screen.getByText(/tbd/i);
+  const linkElement = screen.getByText('Encrypt');
   expect(linkElement).toBeInTheDocument();
 });

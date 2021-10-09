@@ -6,7 +6,7 @@ import encryptSecret from '../utils/encrypt-secret';
 import '../styles/encrypt.scss';
 
 function Encrypt() {
-  const { register, reset, handleSubmit } = useForm();
+  const { register, setValue, handleSubmit, reset } = useForm();
   const [showEncryptionKey, setShowEncryptionKey] = useState(false);
   const [encryptionChunksValue, setEncryptionChunksValue] = useState(1);
   const [encryptedResult, setEncryptedResult] = useState({ error: false, errorMsg: '', chunks: [] });
@@ -16,8 +16,9 @@ function Encrypt() {
     setHasResult(false);
   
     if (startOverClean) {
-      reset();
+      setValue('encryptionChunks', 1);
       setEncryptionChunksValue(1);
+      reset();
     }
   };
 
@@ -47,23 +48,23 @@ function Encrypt() {
       <form className="encrypt-form" onSubmit={handleSubmit(onSubmit)}>
         <div className="secret-field form-field">
           <label htmlFor="secret">The secret *:</label>
-          <textarea id="secret" name="secret" ref={register({ required: true })} rows="10" disabled={hasResult}/>
+          <textarea id="secret" {...register('secret', { required: true, disabled: hasResult })} rows="10"/>
         </div>
         <div className="encryption-settings-submit-group">
           <div className="encryption-chunks-field form-field">
             <label htmlFor="encryptionChunks">Split result in chunks:</label>
-            <input id="encryptionChunks" name="encryptionChunks" ref={register()} min="1" max="9" step="1" value={encryptionChunksValue} type="range" onChange={handleEncryptionChunksChange} disabled={hasResult}/>
+            <input id="encryptionChunks" {...register('encryptionChunks', { disabled: hasResult })} min="1" max="9" step="1" value={encryptionChunksValue} type="range" onChange={handleEncryptionChunksChange} />
             <span className="encryption-chunks-value">{encryptionChunksValue}</span>
           </div>
           <div className="encryption-key-field form-field">
             <label htmlFor="encryptionKey">Encryption key *:</label>
-            <input id="encryptionKey" name="encryptionKey" ref={register({ required: true })} type={ showEncryptionKey ? 'text' : 'password' } disabled={hasResult}/>
+            <input id="encryptionKey" {...register('encryptionKey', { required: true, disabled: hasResult })} type={ showEncryptionKey ? 'text' : 'password' } />
             {showEncryptionKey && <Icon path={mdiEyeOff} size={1.2} onClick={toggleEncryptionKeyVisibility} title="Hide encryption key" />}
             {!showEncryptionKey && <Icon path={mdiEye} size={1.2} onClick={toggleEncryptionKeyVisibility} title="Show encryption key" />}
           </div>
           <button type="submit" className={hasResult ? 'form-start-over-btn' : 'form-submit-btn'}>{hasResult ? 'Start Over' : 'Encrypt Secret'}</button>
           {hasResult && <div className="encryption-startover-clean">
-            <input id="startOverClean" name="startOverClean" ref={register({ required: false })} type="checkbox" />
+            <input id="startOverClean" {...register('startOverClean', { required: false })} type="checkbox" />
             <label htmlFor="startOverClean">Clean Start Over?</label>
           </div>}
         </div>
