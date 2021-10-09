@@ -1,0 +1,143 @@
+@charset "utf-8";
+
+/* bring in sanitize.css styles */
+@import-sanitize;
+
+/* custom input range styles */
+@import './input-range.scss';
+
+/* rest of app styles */
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+* {
+  font-family: 'Roboto', 'Segoe UI', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+}
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+[aria-disabled="true"], [disabled] {
+  cursor: not-allowed;
+  background-color: rgba(233, 30, 99, 0.05);
+}
+
+#root {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding-bottom: 0;
+}
+
+main {
+  flex-grow: 1;
+  padding: 20px;
+}
+
+header, main, footer {
+  flex-shrink: 0;
+}
+
+header {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  nav {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+
+    ul {
+      flex: 1;
+      display: flex;
+      list-style: none;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      padding: 0;
+
+      li {
+        flex: 1;
+        text-align: center;
+
+        a {
+          display: flex;
+          padding: 50px;
+          text-decoration: none;
+          text-transform: uppercase;
+          color: #444;
+          border-bottom: 4px solid teal;
+          align-items: center;
+          flex-direction: row;
+          justify-content: center;
+          letter-spacing: 2px;
+          font-size: 24px;
+          transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
+
+          span {
+            padding: 0 10px;
+          }
+
+          &.is-active {
+            background-color: teal;
+            color: white;
+          }
+
+          &:hover {
+            color: white;
+            background-color: #008B8B;
+          }
+        }
+      }
+    }
+  }
+}
+
+footer {
+  background-color: #f4f4f4;
+  padding: 10px;
+  text-align: center;
+  
+  a {
+    display: inline;
+    text-decoration: none;
+    color: teal;
+  }
+}
+
+.notice {
+  color: teal;
+  padding: 5px;
+  margin-bottom: 10px;
+  display: block;
+  border-bottom: 1px dashed teal;
+}
+
+// Mobile Styles
+@media only screen and (max-width: 600px) {
+  header nav ul li a {
+    padding: 30px;
+    font-size: 18px;
+    flex-direction: column;
+    letter-spacing: 1px;
+  }
+}
+
+@media only screen and (max-width: 360px) {
+  header nav ul li a {
+    padding: 30px 25px;
+  }
+}

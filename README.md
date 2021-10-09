@@ -34,6 +34,11 @@ To build the app for production and deploy the build to the `gh-pages` branch th
 For an extra layer of security when encrypting/decrypting your secrets you might want to turn off the internet connection and run the app locally by following these steps:
    1. TBD
 
+## TODOs
+1. JS utils unit tests.
+2. Lint JS & CSS.
+3. Encrypt page tests: single chunk, multiple chunks, too large input, (clean) start over flow.
+4. Decrypt page tests: TBD.
 ## Contributing
 Feel free to fork and create a PR to this project if you feel like you can improve the performance, security or if you want to implement a new feature.
 

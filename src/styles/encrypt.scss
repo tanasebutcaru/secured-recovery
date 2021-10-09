@@ -1,0 +1,397 @@
+.encrypt-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .form-field {
+    label {
+      display: block;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-size: small;
+      font-weight: bold;
+      color: #444;
+      margin-bottom: 5px;
+    }
+  }
+
+  .secret-field {
+    &.form-field {
+      background-color: #eee;
+      padding: 10px;
+    }
+  }
+
+  .secret-field,
+  textarea {
+    border-radius: 10px;
+    min-width: 100%;
+  }
+
+  textarea {
+    outline: none;
+    border: 1px solid #000;
+    padding: 10px;
+    line-height: 1.5;
+    font-size: 14px;
+  }
+
+  .encryption-settings-submit-group {
+    display: flex;
+    margin: 10px;
+    width: 100%;
+    flex-direction: row;
+    position: relative;
+
+    .form-field {
+      padding: 5px;
+      width: 40%;
+      margin: 0 5px;
+      background-color: #eee;
+      border-radius: 10px;
+
+      * {
+        display: inline-block;
+        vertical-align: middle;
+      }
+    }
+
+    .encryption-chunks-field input,
+    .encryption-key-field input {
+      width: calc(100% - 41px)
+    }
+
+    .encryption-chunks-value {
+      background-color: rgb(77, 79, 80);
+      border-radius: 10px;
+      color: #fff;
+      height: 20px;
+      line-height: 20px;
+      text-align: center;
+      padding: 0 10px;
+      margin: 2px;
+      width: 30px;
+    }
+
+    input {
+      border: 1px solid #000;
+      border-radius: 10px;
+      width: 85%;
+      padding: 5px;
+      outline: none;
+      font-size: 14px;
+
+      &[type='range'] {
+        margin: 5px 6px 5px 0px;
+      }
+    }
+
+    svg {
+      color: #4d4f50;
+      margin: 0px 0px 0 8px;
+      cursor: pointer;
+    }
+  }
+
+  button[type="submit"] {
+    border-radius: 10px;
+    font-weight: normal;
+    font-size: 16px;
+    cursor: pointer;
+    width: 25%;
+    color: #fafafa;
+    background-color: teal;
+    border: none;
+    padding: 7px;
+    display: flex;
+    outline: none;
+    margin: 0 5px;
+    align-items: center;
+    text-transform: uppercase;
+    flex-direction: row;
+    justify-content: center;
+    letter-spacing: 2px;
+    transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
+    z-index: 10;
+
+    &:hover {
+      background-color: #008B8B;
+    }
+
+    &.form-start-over-btn {
+      background-color: #c2185b;
+      font-weight: bold;
+      
+      &:hover {
+        background-color: teal;
+      }
+    }
+  }
+}
+
+.encrypted-secret {
+  display: flex;
+  padding: 10px 0;
+  flex-direction: column;
+  margin-top: 50px;
+
+  .notice {
+    border-bottom: 3px dashed #ccc;
+    border-top: 3px dashed #ccc;
+    flex: 1 1;
+    text-align: center;
+    text-transform: uppercase;
+    color: white;
+    background-color: #3d3d3d;
+    letter-spacing: 5px;
+    font-weight: bold;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    span {
+      margin: 0 9px;
+    }
+  }
+
+  .encrypted-result-error {
+    background-color: red;
+    flex: 1 1;
+    font-weight: bold;
+    text-align: center;
+    align-items: center;
+    padding: 20px 15px;
+    color: white;
+    display: flex;
+    text-transform: uppercase;
+    flex-direction: row;
+    justify-content: center;
+
+    svg {
+      margin: 0 10px;
+    }
+  }
+}
+
+.encryption-startover-clean {
+  position: absolute;
+  bottom: -33px;
+  display: flex;
+  flex-direction: row;
+  right: 0;
+  align-items: center;
+  background-color: #eee;
+  border-radius: 10px;
+  width: 24%;
+
+  label {
+    flex: 1;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 13px;
+    padding: 4px 0;
+    color: #444;
+  }
+
+  input {
+    flex: 0 1 25px;
+    cursor: pointer;
+    margin: 0 5px 0 15px;
+  }
+}
+
+.encrypted-result-success {
+  display: grid;
+  grid-gap: 24px;
+  grid-template-columns: [col] calc(50% - 12px) [col] calc(50% - 12px);
+  text-align: center;
+  padding: 10px;
+
+  &.one-chunk {
+    grid-template-columns: [col] 100%;
+  }
+  
+  .encrypted-result-chunk {
+    border: 10px solid #ccc;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: border-color 0.3s ease-in-out;
+  
+    .chunk-qrcode-img {
+      max-width: 100%;
+      margin: 10px;
+    }
+
+    .chunk-number {
+      background-color: #ccc;
+      width: 100%;
+      text-transform: uppercase;
+      font-weight: bold;
+      padding: 0 10px 10px 10px;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .chunk-operations {
+      background-color: #eee;
+      padding: 20px 10px 35px;
+      width: 100%;
+      position: relative;
+
+      button {
+        cursor: pointer;
+        border: 0 none;
+        outline: none;
+        font-weight: bold;
+        text-transform: uppercase;
+        padding: 5px;
+
+        span {
+          padding: 0 5px;
+        }
+      }
+
+      .chunk-qrcode-download {
+        border: 2px solid #bbb;
+        background-color: #ccc;
+        padding: 5px 30px;
+        margin-bottom: 4px;
+        transition: all 0.3s ease-in-out;
+      }
+
+      .chunk-ops-andor {
+        text-transform: uppercase;
+        font-style: italic;
+        font-size: 12px;
+        position: relative;
+        margin: 10px 0;
+        color: #aaa;
+
+        &:before, &:after {
+          content: "";
+          height: 1px;
+          left: 0;
+          width: calc(50% - 35px);
+          top: 50%;
+          background-color: #ccc;
+          position: absolute;
+        }
+
+        &:after {
+          left: auto;
+          right: 0;
+        }
+      }
+
+      .chunk-data {
+        width: 100%;
+        border: 2px dotted #ccc;
+        padding: 10px 10px 22px;
+        background-color: #dedede;
+        display: inline-block;
+        overflow: hidden;
+        overflow-y: auto;
+        text-align: left;
+        height: 85px;
+        font-size: 15px;
+        transition: all 0.3s ease-in-out;
+      }
+
+      .chunk-secret-copy {
+        border: 2px solid #bbb;
+        background-color: #ccc;
+        padding: 5px 20px;
+        position: absolute;
+        bottom: 22px;
+        left: calc(50% - 184px/2);
+        display: flex;
+        transition: all 0.3s ease-in-out;
+        flex-direction: row;
+        align-items: center;
+      }
+    }
+
+    &:hover {
+      border-color: #3d3d3d;
+
+      .chunk-number { 
+        background-color: #3d3d3d;
+        color: #fff;
+      }
+
+      .chunk-qrcode-download,
+      .chunk-secret-copy {
+        background-color: teal;
+        color: white;
+      }
+
+      .chunk-data {
+        border-color: teal;
+      }
+    }
+
+  }
+}
+
+// Mobile Styles
+@media only screen and (max-width: 824px) {
+  .encrypt-form {
+    .encryption-settings-submit-group {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      .form-field {
+        width: 100%;
+        margin: 0 0 20px;
+      }
+
+      button[type='submit'] {
+        width: 100%;
+        padding: 20px;
+      }
+    }
+  }
+
+  .encrypted-secret {
+    .encrypted-result-error {
+      flex-direction: column;
+    }
+  }
+
+  .encryption-startover-clean {
+    width: 100%;
+  }
+
+  .encrypted-result-success {
+    grid-template-columns: [col] 100%;
+
+    .encrypted-result-chunk {
+      .chunk-operations {
+        .chunk-qrcode-download {
+          padding: 5px 20px;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 360px) {
+  .encrypted-result-success {
+    .encrypted-result-chunk {
+      .chunk-number {
+        padding: 0 0 10px;
+      }
+
+      .chunk-operations {
+        .chunk-qrcode-download {
+          padding: 5px 2px;
+          width: 100%;
+        }
+      }
+    }
+  }
+}
