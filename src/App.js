@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route, NavLink } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, NavLink, Redirect } from "react-router-dom";
 import Icon from '@mdi/react';
 import { mdiLock , mdiLockOpenVariant, mdiGithub } from '@mdi/js';
 import Encrypt from './pages/Encrypt';
@@ -12,7 +12,7 @@ function App() {
         <nav>
           <ul>
             <li>
-              <NavLink to="/" activeClassName="is-active" exact={true}>
+              <NavLink to="/secured-recovery" activeClassName="is-active" exact={true}>
                 <Icon path={mdiLock} size={1}/>
                 <span>Encrypt</span>
               </NavLink>
@@ -31,9 +31,10 @@ function App() {
           <Route path="/decrypt">
             <Decrypt />
           </Route>
-          <Route path="/">
+          <Route path="/secured-recovery">
             <Encrypt />
           </Route>
+          <Route render={() => <Redirect to="/secured-recovery" />}/>
         </Switch>
       </main>
       <footer>
