@@ -9,6 +9,7 @@ function App() {
   return (
     <Router>
       <header>
+        <div className="app-name">Secured Recovery</div>
         <nav>
           <ul>
             <li>
@@ -18,7 +19,7 @@ function App() {
               </NavLink>
             </li>
             <li>
-              <NavLink to="/decrypt" activeClassName="is-active" exact={true}>
+              <NavLink to="/secured-recovery/decrypt" activeClassName="is-active" exact={true}>
                 <Icon path={mdiLockOpenVariant} size={1}/>
                 <span>Decrypt</span>
               </NavLink>
@@ -28,7 +29,7 @@ function App() {
       </header>
       <main className="content">
         <Switch>
-          <Route path="/decrypt">
+          <Route path="/secured-recovery/decrypt">
             <Decrypt />
           </Route>
           <Route path="/secured-recovery">

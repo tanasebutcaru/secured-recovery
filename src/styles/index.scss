@@ -53,6 +53,24 @@ header {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  position: relative;
+
+  .app-name {
+    position: absolute;
+    top: -2px;
+    display: inline-block;
+    text-align: center;
+    background-color: aliceblue;
+    border-radius: 0px 0px 6px 6px;
+    border: 1px dashed teal;
+    color: teal;
+    text-transform: uppercase;
+    padding: 2px 40px;
+    font-weight: bold;
+    font-size: 12px;
+    letter-spacing: 2px;
+    min-width: 30%;
+  }
 
   nav {
     flex: 1;

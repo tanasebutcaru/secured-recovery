@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import Icon from '@mdi/react';
 import { mdiEye, mdiEyeOff, mdiDownload, mdiAlert, mdiChevronDoubleDown, mdiContentCopy } from '@mdi/js';
@@ -6,30 +6,43 @@ import encryptSecret from '../utils/encrypt-secret';
 import '../styles/encrypt.scss';
 
 function Encrypt() {
-  const { register, setValue, handleSubmit, reset } = useForm();
+  const { register, setValue, setFocus, handleSubmit, reset } = useForm();
   const [showEncryptionKey, setShowEncryptionKey] = useState(false);
-  const [encryptionChunksValue, setEncryptionChunksValue] = useState(1);
+  const [encryptionChunks, setEncryptionChunks] = useState(1);
   const [encryptedResult, setEncryptedResult] = useState({ error: false, errorMsg: '', chunks: [] });
   const [hasResult, setHasResult] = useState(false);
+  const chunkDataRefs = useRef([]);
 
   const formStartOver = (startOverClean) => {
     setHasResult(false);
+    chunkDataRefs.current = [];
   
     if (startOverClean) {
       setValue('encryptionChunks', 1);
-      setEncryptionChunksValue(1);
+      setEncryptionChunks(1);
       reset();
     }
   };
 
-  const formSubmit = async (data) => {
+  const formSubmit = async (data, e) => {
     setEncryptedResult(await encryptSecret(data.secret, data.encryptionKey, parseInt(data.encryptionChunks, 10)));
     setHasResult(true);
+
+    // autosize all chunk data secrets based on content length
+    chunkDataRefs.current.forEach(chunkDataRef => {
+      chunkDataRef.style.height = "auto";
+      chunkDataRef.style.height = (chunkDataRef.scrollHeight + 5) + "px";
+    });
   };
 
-  const handleEncryptionChunksChange = (e) => setEncryptionChunksValue(e.target.value);
+  const handleEncryptionChunksChange = (e) => {
+    setValue('encryptionChunks', e.target.value);
+    setEncryptionChunks(e.target.value);
+    setFocus('encryptionChunks');
+  };
+
   const toggleEncryptionKeyVisibility = () => setShowEncryptionKey(prevState => !prevState);
-  const onSubmit = data => hasResult ? formStartOver(data.startOverClean) : formSubmit(data);
+  const onSubmit = async (data, e) => hasResult ? formStartOver(data.startOverClean) : await formSubmit(data, e);
 
   const downloadQRCodeChunk = (chunkNumber, chunkQRCodeDataURL) => {
     const aElement = document.createElement("a");
@@ -39,8 +52,26 @@ function Encrypt() {
   };
 
   const copySecretChunkToClipboard = (chunkNumber, chunkSecretData) => {
-    navigator.clipboard.writeText(chunkSecretData);
-    alert(`Encrypted secret chunk #${chunkNumber} copied to clipboard!`);
+    const errorMessage = `Could not copy encrypted secret chunk #${chunkNumber} to clipboard. Please try again or perform a manual copy!`;
+
+    try {
+      navigator.clipboard.writeText(chunkSecretData)
+        .then(() => alert(`Encrypted secret chunk #${chunkNumber} successfully copied to clipboard!`))
+        .catch(error => alert(errorMessage)); // This will be the case for mobile devices
+    } catch(error) {
+      alert(errorMessage); // This will be the case for older/unsecured browsers
+    }
+
+    selectChunkDataContent(chunkNumber, chunkSecretData.length);
+  };
+
+  const selectChunkDataContent = (chunkIndex, contentLength) => {
+    try {
+      chunkDataRefs.current[chunkIndex].focus();
+      chunkDataRefs.current[chunkIndex].setSelectionRange(0, contentLength);
+    } catch(error) {
+      // do nothing. 
+    }
   };
   
   return (
@@ -53,8 +84,8 @@ function Encrypt() {
         <div className="encryption-settings-submit-group">
           <div className="encryption-chunks-field form-field">
             <label htmlFor="encryptionChunks">Split result in chunks:</label>
-            <input id="encryptionChunks" {...register('encryptionChunks', { disabled: hasResult })} min="1" max="9" step="1" value={encryptionChunksValue} type="range" onChange={handleEncryptionChunksChange} />
-            <span className="encryption-chunks-value">{encryptionChunksValue}</span>
+            <input id="encryptionChunks" {...register('encryptionChunks', { required: true, valueAsNumber: true, disabled: hasResult })} min="1" max="9" step="1" type="range" value={encryptionChunks} onChange={handleEncryptionChunksChange} />
+            <span className="encryption-chunks-value">{encryptionChunks}</span>
           </div>
           <div className="encryption-key-field form-field">
             <label htmlFor="encryptionKey">Encryption key *:</label>
@@ -62,7 +93,11 @@ function Encrypt() {
             {showEncryptionKey && <Icon path={mdiEyeOff} size={1.2} onClick={toggleEncryptionKeyVisibility} title="Hide encryption key" />}
             {!showEncryptionKey && <Icon path={mdiEye} size={1.2} onClick={toggleEncryptionKeyVisibility} title="Show encryption key" />}
           </div>
-          <button type="submit" className={hasResult ? 'form-start-over-btn' : 'form-submit-btn'}>{hasResult ? 'Start Over' : 'Encrypt Secret'}</button>
+          <button
+            type="submit"
+            className={hasResult ? 'form-start-over-btn' : 'form-submit-btn'}>
+              {hasResult ? 'Start Over' : 'Encrypt Secret'}
+          </button>
           {hasResult && <div className="encryption-startover-clean">
             <input id="startOverClean" {...register('startOverClean', { required: false })} type="checkbox" />
             <label htmlFor="startOverClean">Clean Start Over?</label>
@@ -94,7 +129,13 @@ function Encrypt() {
                     <span>Download QRCode #{index+1}</span>
                   </button>
                   <div className="chunk-ops-andor">and/or</div>
-                  <div className="chunk-data">{item.data}</div>
+                  <textarea
+                    className="chunk-data"
+                    value={item.data}
+                    ref={ref => chunkDataRefs.current[index+1] = ref}
+                    onClick={() => selectChunkDataContent(index+1, item.data.length)}
+                    readOnly>
+                  </textarea>
                   <button className="chunk-secret-copy" type="button" onClick={() => copySecretChunkToClipboard(index+1, item.data)}>
                     <Icon path={mdiContentCopy} size={1} title="Copy" />
                     <span>Copy Secret #{index+1}</span>

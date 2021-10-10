@@ -34,7 +34,7 @@
     border: 1px solid #000;
     padding: 10px;
     line-height: 1.5;
-    font-size: 14px;
+    font-size: 16px;
   }
 
   .encryption-settings-submit-group {
@@ -62,6 +62,10 @@
       width: calc(100% - 41px)
     }
 
+    .encryption-key-field input {
+      padding: 2px 5px;
+    }
+
     .encryption-chunks-value {
       background-color: rgb(77, 79, 80);
       border-radius: 10px;
@@ -80,7 +84,7 @@
       width: 85%;
       padding: 5px;
       outline: none;
-      font-size: 14px;
+      font-size: 16px;
 
       &[type='range'] {
         margin: 5px 6px 5px 0px;
@@ -124,7 +128,7 @@
       font-weight: bold;
       
       &:hover {
-        background-color: teal;
+        background-color: #dd2a70;
       }
     }
   }
@@ -292,12 +296,14 @@
         padding: 10px 10px 22px;
         background-color: #dedede;
         display: inline-block;
+        outline: none;
         overflow: hidden;
         overflow-y: auto;
         text-align: left;
-        height: 85px;
+        min-height: 85px;
         font-size: 15px;
         transition: all 0.3s ease-in-out;
+        resize: none;
       }
 
       .chunk-secret-copy {
