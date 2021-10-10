@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/secured-recovery/static/css/main.b2d11a5d.chunk.css",
-    "main.js": "/secured-recovery/static/js/main.c9bcf307.chunk.js",
-    "main.js.map": "/secured-recovery/static/js/main.c9bcf307.chunk.js.map",
+    "main.css": "/secured-recovery/static/css/main.e18008ff.chunk.css",
+    "main.js": "/secured-recovery/static/js/main.ac4f4fef.chunk.js",
+    "main.js.map": "/secured-recovery/static/js/main.ac4f4fef.chunk.js.map",
     "runtime-main.js": "/secured-recovery/static/js/runtime-main.740136c4.js",
     "runtime-main.js.map": "/secured-recovery/static/js/runtime-main.740136c4.js.map",
     "static/js/2.886b2e12.chunk.js": "/secured-recovery/static/js/2.886b2e12.chunk.js",
     "static/js/2.886b2e12.chunk.js.map": "/secured-recovery/static/js/2.886b2e12.chunk.js.map",
     "index.html": "/secured-recovery/index.html",
-    "static/css/main.b2d11a5d.chunk.css.map": "/secured-recovery/static/css/main.b2d11a5d.chunk.css.map",
+    "static/css/main.e18008ff.chunk.css.map": "/secured-recovery/static/css/main.e18008ff.chunk.css.map",
     "static/js/2.886b2e12.chunk.js.LICENSE.txt": "/secured-recovery/static/js/2.886b2e12.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.740136c4.js",
     "static/js/2.886b2e12.chunk.js",
-    "static/css/main.b2d11a5d.chunk.css",
-    "static/js/main.c9bcf307.chunk.js"
+    "static/css/main.e18008ff.chunk.css",
+    "static/js/main.ac4f4fef.chunk.js"
   ]
 }
