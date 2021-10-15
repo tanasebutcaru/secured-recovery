@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import Icon from '@mdi/react';
 import { mdiEye, mdiEyeOff, mdiDownload, mdiAlert, mdiChevronDoubleDown, mdiContentCopy } from '@mdi/js';
 import encryptSecret from '../utils/encrypt-secret';
+import { autoSizeTextarea } from '../utils/common';
 import '../styles/encrypt.scss';
 
 function Encrypt() {
@@ -29,10 +30,7 @@ function Encrypt() {
     setHasResult(true);
 
     // autosize all chunk data secrets based on content length
-    chunkDataRefs.current.forEach(chunkDataRef => {
-      chunkDataRef.style.height = "auto";
-      chunkDataRef.style.height = (chunkDataRef.scrollHeight + 5) + "px";
-    });
+    chunkDataRefs.current.forEach(chunkDataRef => autoSizeTextarea(chunkDataRef));
   };
 
   const handleEncryptionChunksChange = (e) => {
@@ -138,7 +136,7 @@ function Encrypt() {
                   </textarea>
                   <button className="chunk-secret-copy" type="button" onClick={() => copySecretChunkToClipboard(index+1, item.data)}>
                     <Icon path={mdiContentCopy} size={1} title="Copy" />
-                    <span>Copy Secret #{index+1}</span>
+                    <span>Copy Text #{index+1}</span>
                   </button>
                 </div>
               </div>
