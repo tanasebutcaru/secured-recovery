@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route, NavLink, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, HashRouter, Switch, Route, NavLink, Redirect } from "react-router-dom";
 import Icon from '@mdi/react';
 import { mdiLock , mdiLockOpenVariant, mdiGithub } from '@mdi/js';
 import Encrypt from './pages/Encrypt';
@@ -7,19 +7,19 @@ import Decrypt from './pages/Decrypt';
 
 function App() {
   return (
-    <Router>
+    <HashRouter>
       <header>
         <div className="app-name">Secured Recovery</div>
         <nav>
           <ul>
             <li>
-              <NavLink to="/secured-recovery" activeClassName="is-active" exact={true}>
+              <NavLink to="/encrypt" activeClassName="is-active" exact={true}>
                 <Icon path={mdiLock} size={1}/>
                 <span>Encrypt</span>
               </NavLink>
             </li>
             <li>
-              <NavLink to="/secured-recovery/decrypt" activeClassName="is-active" exact={true}>
+              <NavLink to="/decrypt" activeClassName="is-active" exact={true}>
                 <Icon path={mdiLockOpenVariant} size={1}/>
                 <span>Decrypt</span>
               </NavLink>
@@ -29,13 +29,13 @@ function App() {
       </header>
       <main className="content">
         <Switch>
-          <Route path="/secured-recovery/decrypt">
-            <Decrypt />
-          </Route>
-          <Route path="/secured-recovery">
+          <Redirect exact from="/" to="/encrypt" />
+          <Route path="/encrypt">
             <Encrypt />
           </Route>
-          <Route render={() => <Redirect to="/secured-recovery" />}/>
+          <Route path="/decrypt">
+            <Decrypt />
+          </Route>
         </Switch>
       </main>
       <footer>
@@ -48,7 +48,7 @@ function App() {
           </a>
         </small>
       </footer>
-    </Router>
+    </HashRouter>
   );
 }
 
