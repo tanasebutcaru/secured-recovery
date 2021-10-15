@@ -121,7 +121,7 @@ function Encrypt() {
           <div className={`encrypted-result-success ${encryptedResult.chunks.length === 1 ? 'one-chunk': ''}`}>
             {encryptedResult.chunks.map((item, index) => (
               <div className={`encrypted-result-chunk chunk-${index+1}`} key={index}>
-                <div className="chunk-number">Encrypted Secret Chunk #{index+1}</div>
+                <div className="chunk-number">Encrypted Secret | Chunk #{index+1}</div>
                 <img className="chunk-qrcode-img" src={item.qrcodeDataURL} alt={`QRCode Chunk #${index+1}`}></img>
                 <div className="chunk-operations">
                   <button className="chunk-qrcode-download" type="button" onClick={() => downloadQRCodeChunk(index+1, item.qrcodeDataURL)}>

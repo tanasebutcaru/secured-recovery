@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, HashRouter, Switch, Route, NavLink, Redirect } from "react-router-dom";
+import { HashRouter, Switch, Route, NavLink, Redirect } from "react-router-dom";
 import Icon from '@mdi/react';
 import { mdiLock , mdiLockOpenVariant, mdiGithub } from '@mdi/js';
 import Encrypt from './pages/Encrypt';
