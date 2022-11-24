@@ -1,5 +1,5 @@
 # Secured Recovery
-> Extra security layer for your recovery codes, secret questions' answers, crypto seed phrase, etc.
+> Extra security layer for your recovery codes, secret questions' answers, crypto seed phrase, etc. 
 
 ## Getting started
 Setup the local environment:
