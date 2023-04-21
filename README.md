@@ -7,7 +7,7 @@ Setup the local environment:
 # use the correct NodeJS version
 nvm use
 
-# install all NodeJs dependencies
+# install all NodeJS dependencies
 npm install
 ```
 ## Development
